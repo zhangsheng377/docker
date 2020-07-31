@@ -1,0 +1,37 @@
+FROM zhangsheng377/raspberry_base
+ENTRYPOINT []
+
+RUN apt update && \
+    apt upgrade
+RUN apt install git
+RUN git clone https://gitee.com/zhangshengdong/stats_stock.git
+RUN apt install python3
+RUN apt install python3-setuptools
+RUN apt install python3-wheel
+RUN apt install python3-dev
+RUN apt install gcc
+RUN apt install python3-flask
+RUN apt install python3-requests
+RUN apt install python3-xmltodict
+RUN apt install python3-lxml
+RUN apt install python3-simplejson
+RUN apt install python3-bs4
+RUN apt install python3-pandas
+RUN apt install python3-seaborn
+RUN apt install python3-seaborn
+RUN apt install python3-pip
+RUN python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tushare
+RUN apt install cython3
+RUN git clone https://gitee.com/zhangshengdong/statsmodels.git
+WORKDIR /statsmodels
+RUN python3 setup.py install
+WORKDIR /stats_stock
+COPY token /stats_stock/token
+RUN cp simhei.ttf /usr/share/fonts/
+# RUN fc-cache -f -v
+RUN rm -rf /root/.cache/matplotlib
+COPY AppID /stats_stock/AppID
+COPY AppSecret /stats_stock/AppSecret
+RUN rm -r /statsmodels
+
+CMD ["/bin/bash"]

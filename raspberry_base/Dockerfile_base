@@ -1,0 +1,12 @@
+FROM resin/rpi-raspbian:latest
+ENTRYPOINT []
+
+RUN rm /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
+RUN rm /etc/apt/sources.list.d/raspi.list
+COPY raspi.list /etc/apt/sources.list.d/raspi.list
+
+RUN apt update && \
+    apt upgrade
+RUN apt install libcurl4
+RUN apt install apt-utils
