@@ -3,7 +3,9 @@ ENTRYPOINT []
 
 # RUN apt update && \
 #     apt upgrade
+
 WORKDIR /stats_stock
 RUN git pull
 
 CMD ["python3", "server.py"]
+# CMD ["/bin/bash"]
